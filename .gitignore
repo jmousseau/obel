@@ -3,5 +3,5 @@
 !*.xcworkspace/contents.xcworkspacedata
 
 **/*.xcodeproj/*
-!**/.xcodeproj/project.pbxproj
+!**/*.xcodeproj/project.pbxproj
 !**/*.xcodeproj/xcshareddata/
