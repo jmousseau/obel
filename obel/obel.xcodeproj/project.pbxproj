@@ -10,7 +10,10 @@
 		04A8B3BE26FAB72400816598 /* obel.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A8B3BD26FAB72400816598 /* obel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A8B3D226FACB9800816598 /* vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A8B3D026FACB9800816598 /* vector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A8B3D326FACB9800816598 /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A8B3D126FACB9800816598 /* vector.c */; };
-		04A8B3D526FAD65E00816598 /* attributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A8B3D426FAD65000816598 /* attributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04A8B3D526FAD65E00816598 /* base.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A8B3D426FAD65000816598 /* base.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04CF171926FB7A1A006571F0 /* aabb.h in Headers */ = {isa = PBXBuildFile; fileRef = 04CF171726FB7A1A006571F0 /* aabb.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04CF171A26FB7A1A006571F0 /* aabb.c in Sources */ = {isa = PBXBuildFile; fileRef = 04CF171826FB7A1A006571F0 /* aabb.c */; };
+		04CF171C26FB857F006571F0 /* aabb.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF171B26FB857F006571F0 /* aabb.m */; };
 		04D0EBCF26FADAE000BF2DB5 /* obel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A8B3BA26FAB72400816598 /* obel.framework */; };
 		04D0EBD626FAEAA800BF2DB5 /* vector.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D0EBD526FAEAA800BF2DB5 /* vector.m */; };
 /* End PBXBuildFile section */
@@ -30,7 +33,10 @@
 		04A8B3BD26FAB72400816598 /* obel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = obel.h; sourceTree = "<group>"; };
 		04A8B3D026FACB9800816598 /* vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector.h; sourceTree = "<group>"; };
 		04A8B3D126FACB9800816598 /* vector.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vector.c; sourceTree = "<group>"; };
-		04A8B3D426FAD65000816598 /* attributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = attributes.h; sourceTree = "<group>"; };
+		04A8B3D426FAD65000816598 /* base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = base.h; sourceTree = "<group>"; };
+		04CF171726FB7A1A006571F0 /* aabb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aabb.h; sourceTree = "<group>"; };
+		04CF171826FB7A1A006571F0 /* aabb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aabb.c; sourceTree = "<group>"; };
+		04CF171B26FB857F006571F0 /* aabb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aabb.m; sourceTree = "<group>"; };
 		04D0EBCB26FADAE000BF2DB5 /* obeltests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = obeltests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D0EBD526FAEAA800BF2DB5 /* vector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,7 +82,9 @@
 			isa = PBXGroup;
 			children = (
 				04A8B3BD26FAB72400816598 /* obel.h */,
-				04A8B3D426FAD65000816598 /* attributes.h */,
+				04CF171726FB7A1A006571F0 /* aabb.h */,
+				04CF171826FB7A1A006571F0 /* aabb.c */,
+				04A8B3D426FAD65000816598 /* base.h */,
 				04A8B3D026FACB9800816598 /* vector.h */,
 				04A8B3D126FACB9800816598 /* vector.c */,
 			);
@@ -87,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				04D0EBD526FAEAA800BF2DB5 /* vector.m */,
+				04CF171B26FB857F006571F0 /* aabb.m */,
 			);
 			path = obeltests;
 			sourceTree = "<group>";
@@ -100,7 +109,8 @@
 			files = (
 				04A8B3D226FACB9800816598 /* vector.h in Headers */,
 				04A8B3BE26FAB72400816598 /* obel.h in Headers */,
-				04A8B3D526FAD65E00816598 /* attributes.h in Headers */,
+				04CF171926FB7A1A006571F0 /* aabb.h in Headers */,
+				04A8B3D526FAD65E00816598 /* base.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04A8B3D326FACB9800816598 /* vector.c in Sources */,
+				04CF171A26FB7A1A006571F0 /* aabb.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04D0EBD626FAEAA800BF2DB5 /* vector.m in Sources */,
+				04CF171C26FB857F006571F0 /* aabb.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

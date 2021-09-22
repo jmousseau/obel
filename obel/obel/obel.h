@@ -5,5 +5,6 @@
 //  Created by Jack Mousseau on 9/21/21.
 //
 
-#include <obel/attributes.h>
+#include <obel/aabb.h>
+#include <obel/base.h>
 #include <obel/vector.h>
