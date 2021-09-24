@@ -8,7 +8,7 @@
 #ifndef vector_h
 #define vector_h
 
-#include <obel/base.h>
+#include <obel/define.h>
 
 #define OBEL_VECTOR_FUNC OBEL_INLINE OBEL_OVERLOADABLE OBEL_CONST
 
@@ -23,6 +23,17 @@ typedef union obel_vector4 {
     struct { union { struct { float x, y, z; }; obel_vector3_t xyz; }; float w; };
     struct { union { struct { float r, g, b; }; obel_vector3_t rgb; }; float a; };
 } obel_vector4_t;
+
+// MARK: - Common Vectors
+
+#define OBEL_VECTOR3_ZERO ((obel_vector3_t){ 0.f, 0.f, 0.f })
+#define OBEL_VECTOR4_ZERO ((obel_vector4_t){ 0.f, 0.f, 0.f, 0.f })
+
+#define OBEL_VECTOR3_MIN ((obel_vector3_t){ -FLT_MAX, -FLT_MAX, -FLT_MAX })
+#define OBEL_VECTOR4_MIN ((obel_vector4_t){ -FLT_MAX, -FLT_MAX, -FLT_MAX, -FLT_MAX })
+
+#define OBEL_VECTOR3_MAX ((obel_vector3_t){ FLT_MAX, FLT_MAX, FLT_MAX })
+#define OBEL_VECTOR4_MAX ((obel_vector4_t){ FLT_MAX, FLT_MAX, FLT_MAX, FLT_MAX })
 
 // MARK: - Geometry
 

@@ -31,3 +31,9 @@ OBEL_AABB_FUNC obel_aabb_t obel_aabb_union(obel_aabb_t a, obel_aabb_t b) {
     obel_vector3_t max = obel_vector_max(a.max, b.max);
     return (obel_aabb_t){ min, max };
 }
+
+OBEL_AABB_FUNC obel_aabb_t obel_aabb_union(obel_aabb_t a, obel_vector3_t b) {
+    obel_vector3_t min = obel_vector_min(a.min, b);
+    obel_vector3_t max = obel_vector_max(a.max, b);
+    return (obel_aabb_t){ min, max };
+}

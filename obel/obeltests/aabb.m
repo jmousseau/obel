@@ -36,15 +36,26 @@
 }
 
 - (void)testAABBUnion {
-    obel_aabb_t a = { 1.f, 2.f, 3.f, 11.f, 22.f, 33.f };
-    obel_aabb_t b = { 6.f, 7.f, 8.f, 16.f, 27.f, 38.f };
-    obel_aabb_t aabb = obel_aabb_union(a, b);
-    XCTAssertEqual(aabb.min.x,  1.f);
-    XCTAssertEqual(aabb.min.y,  2.f);
-    XCTAssertEqual(aabb.min.z,  3.f);
-    XCTAssertEqual(aabb.max.x, 16.f);
-    XCTAssertEqual(aabb.max.y, 27.f);
-    XCTAssertEqual(aabb.max.z, 38.f);
+    {
+        obel_aabb_t a = { 1.f, 2.f, 3.f, 11.f, 22.f, 33.f };
+        obel_aabb_t b = { 6.f, 7.f, 8.f, 16.f, 27.f, 38.f };
+        obel_aabb_t aabb = obel_aabb_union(a, b);
+        XCTAssertEqual(aabb.min.x,  1.f);
+        XCTAssertEqual(aabb.min.y,  2.f);
+        XCTAssertEqual(aabb.min.z,  3.f);
+        XCTAssertEqual(aabb.max.x, 16.f);
+        XCTAssertEqual(aabb.max.y, 27.f);
+        XCTAssertEqual(aabb.max.z, 38.f);
+    } {
+        obel_aabb_t a = { 1.f, 2.f, 3.f, 11.f, 22.f, 33.f };
+        obel_aabb_t aabb = obel_aabb_union(a, (obel_vector3_t){ 16.f, 27.f, 38.f });
+        XCTAssertEqual(aabb.min.x,  1.f);
+        XCTAssertEqual(aabb.min.y,  2.f);
+        XCTAssertEqual(aabb.min.z,  3.f);
+        XCTAssertEqual(aabb.max.x, 16.f);
+        XCTAssertEqual(aabb.max.y, 27.f);
+        XCTAssertEqual(aabb.max.z, 38.f);
+    }
 }
 
 @end

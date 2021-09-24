@@ -7,14 +7,6 @@
 
 #include <obel/vector.h>
 
-#ifndef MIN
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
-
-#ifndef MAX
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
-#endif
-
 // MARK: - Geometry
 
 OBEL_VECTOR_FUNC obel_vector3_t obel_vector_cross(obel_vector3_t a, obel_vector3_t b) {
@@ -55,19 +47,19 @@ OBEL_VECTOR_FUNC float obel_vector_length(obel_vector4_t a) {
 // MARK: - Logic
 
 OBEL_VECTOR_FUNC obel_vector3_t obel_vector_min(obel_vector3_t a, obel_vector3_t b) {
-    return (obel_vector3_t){ MIN(a.x, b.x), MIN(a.y, b.y), MIN(a.z, b.z) };
+    return (obel_vector3_t){ OBEL_MIN(a.x, b.x), OBEL_MIN(a.y, b.y), OBEL_MIN(a.z, b.z) };
 }
 
 OBEL_VECTOR_FUNC obel_vector4_t obel_vector_min(obel_vector4_t a, obel_vector4_t b) {
-    return (obel_vector4_t){ MIN(a.x, b.x), MIN(a.y, b.y), MIN(a.z, b.z), MIN(a.w, b.w) };
+    return (obel_vector4_t){ OBEL_MIN(a.x, b.x), OBEL_MIN(a.y, b.y), OBEL_MIN(a.z, b.z), OBEL_MIN(a.w, b.w) };
 }
 
 OBEL_VECTOR_FUNC obel_vector3_t obel_vector_max(obel_vector3_t a, obel_vector3_t b) {
-    return (obel_vector3_t){ MAX(a.x, b.x), MAX(a.y, b.y), MAX(a.z, b.z) };
+    return (obel_vector3_t){ OBEL_MAX(a.x, b.x), OBEL_MAX(a.y, b.y), OBEL_MAX(a.z, b.z) };
 }
 
 OBEL_VECTOR_FUNC obel_vector4_t obel_vector_max(obel_vector4_t a, obel_vector4_t b) {
-    return (obel_vector4_t){ MAX(a.x, b.x), MAX(a.y, b.y), MAX(a.z, b.z), MAX(a.w, b.w) };
+    return (obel_vector4_t){ OBEL_MAX(a.x, b.x), OBEL_MAX(a.y, b.y), OBEL_MAX(a.z, b.z), OBEL_MAX(a.w, b.w) };
 }
 
 // MARK: - Math
@@ -155,17 +147,17 @@ OBEL_VECTOR_FUNC float obel_vector_reduce_mul(obel_vector4_t a) {
 }
 
 OBEL_VECTOR_FUNC float obel_vector_reduce_min(obel_vector3_t a) {
-    return MIN(MIN(a.x, a.y), a.z);
+    return OBEL_MIN(OBEL_MIN(a.x, a.y), a.z);
 }
 
 OBEL_VECTOR_FUNC float obel_vector_reduce_min(obel_vector4_t a) {
-    return MIN(MIN(MIN(a.x, a.y), a.z), a.w);
+    return OBEL_MIN(OBEL_MIN(OBEL_MIN(a.x, a.y), a.z), a.w);
 }
 
 OBEL_VECTOR_FUNC float obel_vector_reduce_max(obel_vector3_t a) {
-    return MAX(MAX(a.x, a.y), a.z);
+    return OBEL_MAX(OBEL_MAX(a.x, a.y), a.z);
 }
 
 OBEL_VECTOR_FUNC float obel_vector_reduce_max(obel_vector4_t a) {
-    return MAX(MAX(MAX(a.x, a.y), a.z), a.w);
+    return OBEL_MAX(OBEL_MAX(OBEL_MAX(a.x, a.y), a.z), a.w);
 }

@@ -8,14 +8,15 @@
 #ifndef histogram_h
 #define histogram_h
 
-#include <obel/base.h>
+#include <obel/define.h>
 
-#define OBEL_HISTOGRAM_FUNC OBEL_OVERLOADABLE OBEL_CONST
+#define OBEL_HISTOGRAM_FUNC OBEL_OVERLOADABLE
 
 typedef struct obel_histogram {
     float offset;
     float stride;
-    int32_t count;
+    uint32_t count;
+    uint32_t samples;
     int32_t *bins;
 } obel_histogram_t;
 
