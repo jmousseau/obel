@@ -7,4 +7,5 @@
 
 #include <obel/aabb.h>
 #include <obel/base.h>
+#include <obel/histogram.h>
 #include <obel/vector.h>
