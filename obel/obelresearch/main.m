@@ -8,7 +8,7 @@
 #import <obel/obel.h>
 
 int main(int argc, const char * argv[]) {
-    const char *xyz_path = "/Users/jack/Desktop/obel/points.xyz";
+    const char *xyz_path = "/Users/jack/Desktop/obel/points.bin";
     const char *ply_path = "/Users/jack/Desktop/obel/points.ply";
     const char *ply_scaled_path = "/Users/jack/Desktop/obel/points_scaled.ply";
 
@@ -18,7 +18,7 @@ int main(int argc, const char * argv[]) {
     if ((ply_scaled_fd = open(ply_scaled_path, O_RDWR | O_CREAT)) < 0) { exit(1); }
 
     obel_cloud_t cloud = { 0 };
-    if (obel_cloud_map(xyz_fd, &cloud) < 0) { exit(1); }
+    if (obel_cloud_read_bin(xyz_fd, &cloud) < 0) { exit(1); }
     if (obel_cloud_write_ply(ply_fd, &cloud) < 0) { exit(1); }
 
     for (uint32_t i = 0; i < cloud.count; i++) {

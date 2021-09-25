@@ -28,14 +28,17 @@ typedef struct obel_cloud_stat {
 
 // MARK: - Allocation
 
-OBEL_CLOUD_FUNC int32_t obel_cloud_map(int fd, obel_cloud_t *cloud);
 OBEL_CLOUD_FUNC int32_t obel_cloud_map(obel_cloud_t *cloud);
 OBEL_CLOUD_FUNC int32_t obel_cloud_unmap(obel_cloud_t *cloud);
 
-// MARK: - File Output
+// MARK: - File I/O
 
-OBEL_CLOUD_FUNC int32_t obel_cloud_write_xyz(int fd, obel_cloud_t *cloud);
+OBEL_CLOUD_FUNC int32_t obel_cloud_read_bin(int fd, obel_cloud_t *cloud);
+OBEL_CLOUD_FUNC int32_t obel_cloud_read_xyz(int fd, obel_cloud_t *cloud);
+
+OBEL_CLOUD_FUNC int32_t obel_cloud_write_bin(int fd, obel_cloud_t *cloud);
 OBEL_CLOUD_FUNC int32_t obel_cloud_write_ply(int fd, obel_cloud_t *cloud);
+OBEL_CLOUD_FUNC int32_t obel_cloud_write_xyz(int fd, obel_cloud_t *cloud);
 
 // MARK: - Statistics
 

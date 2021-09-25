@@ -9,30 +9,6 @@
 
 // MARK: - Allocation
 
-OBEL_CLOUD_FUNC int32_t obel_cloud_map(int fd, obel_cloud_t *cloud) {
-    stat_t stat;
-    if (fstat(fd, &stat) < 0) {
-        return -1;
-    }
-
-    size_t count = stat.st_size / sizeof(obel_vector3_t);
-    if (count > UINT32_MAX) {
-        return -1;
-    }
-
-    cloud->capacity = (uint32_t)count;
-
-    size_t length = cloud->capacity * sizeof(obel_vector3_t);
-    obel_vector3_t *points = mmap(NULL, length, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    if (points == MAP_FAILED) {
-        return -1;
-    }
-
-    cloud->count = cloud->capacity;
-    cloud->points = points;
-    return 0;
-}
-
 OBEL_CLOUD_FUNC int32_t obel_cloud_map(obel_cloud_t *cloud) {
     if (cloud->capacity == 0) {
         return -1;
@@ -61,7 +37,84 @@ OBEL_CLOUD_FUNC int32_t obel_cloud_unmap(obel_cloud_t *cloud) {
 
 // MARK: - File I/O
 
-OBEL_CLOUD_FUNC int32_t obel_cloud_write_xyz(int fd, obel_cloud_t *cloud) {
+OBEL_CLOUD_FUNC int32_t obel_cloud_read_bin(int fd, obel_cloud_t *cloud) {
+    stat_t stat;
+    if (fstat(fd, &stat) < 0) {
+        return -1;
+    }
+
+    size_t count = stat.st_size / sizeof(obel_vector3_t);
+    if (count > UINT32_MAX) {
+        return -1;
+    }
+
+    cloud->capacity = (uint32_t)count;
+
+    size_t length = cloud->capacity * sizeof(obel_vector3_t);
+    obel_vector3_t *points = mmap(NULL, length, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    if (points == MAP_FAILED) {
+        return -1;
+    }
+
+    cloud->count = cloud->capacity;
+    cloud->points = points;
+    return 0;
+}
+
+OBEL_CLOUD_FUNC int32_t obel_cloud_read_xyz(int fd, obel_cloud_t *cloud) {
+    size_t size = 4096;
+    size_t count = 0;
+    char buffer[size];
+
+    uint32_t spaces = 0;
+    while ((count = read(fd, &buffer, size)) > 0) {
+        for (uint32_t i = 0; i < count; i++) {
+            switch (buffer[i]) {
+                case ' ':
+                    spaces++;
+                    break;
+                case '\n':
+                    cloud->capacity++;
+                    spaces = 0;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    if (spaces == 2) {
+        cloud->capacity++;
+    }
+
+    if (count < 0) { return -1; };
+    if (lseek(fd, 0, SEEK_SET) < 0) { return -1; };
+    if (obel_cloud_map(cloud) < 0) {  return -1; };
+
+    float *points = (float *)cloud->points;
+    while ((count = read(fd, &buffer, size)) > 0) {
+        size_t complete = count;
+
+        if (count < size) {
+            buffer[complete] = ' ';
+        } else {
+            while (buffer[--complete] != ' ') {}
+        }
+
+        char *head = &buffer[0];
+        char *tail = &buffer[complete];
+        while (head != tail) {
+            *(points++) = strtod(head, &head);
+        }
+
+        lseek(fd, complete - count, SEEK_CUR);
+    }
+
+    cloud->count = cloud->capacity;
+    return 0;
+}
+
+OBEL_CLOUD_FUNC int32_t obel_cloud_write_bin(int fd, obel_cloud_t *cloud) {
     size_t length = cloud->count * sizeof(obel_vector3_t);
     if (write(fd, cloud->points, length) != length) { return -1; }
     return 0;
@@ -75,7 +128,11 @@ OBEL_CLOUD_FUNC int32_t obel_cloud_write_ply(int fd, obel_cloud_t *cloud) {
     if (dprintf(fd, "property float y\n") < 0) { return -1; };
     if (dprintf(fd, "property float z\n") < 0) { return -1; };
     if (dprintf(fd, "end_header\n") < 0) { return -1; };
+    if (obel_cloud_write_xyz(fd, cloud) < 0) { return -1; };
+    return 0;
+}
 
+OBEL_CLOUD_FUNC int32_t obel_cloud_write_xyz(int fd, obel_cloud_t *cloud) {
     for (uint32_t i = 0; i < cloud->count; i++) {
         obel_vector3_t point = cloud->points[i];
         if (dprintf(fd, "%.6f %.6f %.6f\n", point.x, point.y, point.z) < 0) { return -1; };
