@@ -9,11 +9,18 @@
 #define base_h
 
 #include <assert.h>
+#include <fcntl.h>
 #include <float.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+typedef struct stat stat_t;
 
 #define OBEL_INLINE __attribute__((__always_inline__))
 #define OBEL_OVERLOADABLE __attribute__((__overloadable__))

@@ -22,6 +22,8 @@
 		04F4D16226FD54A00085EFDD /* cloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F4D16026FD54A00085EFDD /* cloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04F4D16326FD54A00085EFDD /* cloud.c in Sources */ = {isa = PBXBuildFile; fileRef = 04F4D16126FD54A00085EFDD /* cloud.c */; };
 		04F4D16726FD6E0C0085EFDD /* cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4D16626FD6E0C0085EFDD /* cloud.m */; };
+		04F4D16F26FE22020085EFDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4D16E26FE22020085EFDD /* main.m */; };
+		04F4D17426FE25000085EFDD /* obel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A8B3BA26FAB72400816598 /* obel.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,18 @@
 			remoteInfo = obel;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		04F4D16A26FE22020085EFDD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		04A8B3BA26FAB72400816598 /* obel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = obel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +65,8 @@
 		04F4D16026FD54A00085EFDD /* cloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloud.h; sourceTree = "<group>"; };
 		04F4D16126FD54A00085EFDD /* cloud.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cloud.c; sourceTree = "<group>"; };
 		04F4D16626FD6E0C0085EFDD /* cloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cloud.m; sourceTree = "<group>"; };
+		04F4D16C26FE22020085EFDD /* obelresearch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = obelresearch; sourceTree = BUILT_PRODUCTS_DIR; };
+		04F4D16E26FE22020085EFDD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +85,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		04F4D16926FE22020085EFDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04F4D17426FE25000085EFDD /* obel.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -76,8 +100,10 @@
 			isa = PBXGroup;
 			children = (
 				04A8B3BC26FAB72400816598 /* obel */,
+				04F4D16D26FE22020085EFDD /* obelresearch */,
 				04D0EBCC26FADAE000BF2DB5 /* obeltests */,
 				04A8B3BB26FAB72400816598 /* Products */,
+				04F4D17326FE25000085EFDD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +112,7 @@
 			children = (
 				04A8B3BA26FAB72400816598 /* obel.framework */,
 				04D0EBCB26FADAE000BF2DB5 /* obeltests.xctest */,
+				04F4D16C26FE22020085EFDD /* obelresearch */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,6 +143,21 @@
 				04D0EBD526FAEAA800BF2DB5 /* vector.m */,
 			);
 			path = obeltests;
+			sourceTree = "<group>";
+		};
+		04F4D16D26FE22020085EFDD /* obelresearch */ = {
+			isa = PBXGroup;
+			children = (
+				04F4D16E26FE22020085EFDD /* main.m */,
+			);
+			path = obelresearch;
+			sourceTree = "<group>";
+		};
+		04F4D17326FE25000085EFDD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +215,23 @@
 			productReference = 04D0EBCB26FADAE000BF2DB5 /* obeltests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		04F4D16B26FE22020085EFDD /* obelresearch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04F4D17026FE22020085EFDD /* Build configuration list for PBXNativeTarget "obelresearch" */;
+			buildPhases = (
+				04F4D16826FE22020085EFDD /* Sources */,
+				04F4D16926FE22020085EFDD /* Frameworks */,
+				04F4D16A26FE22020085EFDD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = obelresearch;
+			productName = obelresearch;
+			productReference = 04F4D16C26FE22020085EFDD /* obelresearch */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -186,6 +245,9 @@
 						CreatedOnToolsVersion = 13.0;
 					};
 					04D0EBCA26FADAE000BF2DB5 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					04F4D16B26FE22020085EFDD = {
 						CreatedOnToolsVersion = 13.0;
 					};
 				};
@@ -205,6 +267,7 @@
 			targets = (
 				04A8B3B926FAB72400816598 /* obel */,
 				04D0EBCA26FADAE000BF2DB5 /* obeltests */,
+				04F4D16B26FE22020085EFDD /* obelresearch */,
 			);
 		};
 /* End PBXProject section */
@@ -246,6 +309,14 @@
 				04F4D16726FD6E0C0085EFDD /* cloud.m in Sources */,
 				04D0EBD626FAEAA800BF2DB5 /* vector.m in Sources */,
 				04CF171C26FB857F006571F0 /* aabb.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		04F4D16826FE22020085EFDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04F4D16F26FE22020085EFDD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +546,26 @@
 			};
 			name = Release;
 		};
+		04F4D17126FE22020085EFDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LVFKAL5KFM;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		04F4D17226FE22020085EFDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LVFKAL5KFM;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -501,6 +592,15 @@
 			buildConfigurations = (
 				04D0EBD326FADAE000BF2DB5 /* Debug */,
 				04D0EBD426FADAE000BF2DB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04F4D17026FE22020085EFDD /* Build configuration list for PBXNativeTarget "obelresearch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04F4D17126FE22020085EFDD /* Debug */,
+				04F4D17226FE22020085EFDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
