@@ -5,8 +5,8 @@
 //  Created by Jack Mousseau on 9/21/21.
 //
 
-#ifndef base_h
-#define base_h
+#ifndef define_h
+#define define_h
 
 #include <assert.h>
 #include <fcntl.h>
@@ -30,5 +30,11 @@ typedef struct stat stat_t;
 
 #define OBEL_MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define OBEL_MAX(a, b) (((a) > (b)) ? (a) : (b))
+
+OBEL_INLINE OBEL_OVERLOADABLE static void obel_swap(uint16_t *a, uint16_t *b) {
+    (*a) = (*a) ^ (*b);
+    (*b) = (*a) ^ (*b);
+    (*a) = (*a) ^ (*b);
+}
 
 #endif // define_h

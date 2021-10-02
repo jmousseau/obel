@@ -32,5 +32,28 @@ int main(int argc, const char * argv[]) {
     close(ply_fd);
     close(ply_scaled_fd);
 
+    obel_coord_t coords[7] = { { .bits = UINT16_MAX }, { 0 }, { 0 }, { 0 }, { 0 }, { 0 }, { 0 } };
+    obel_coord_heap_t heap = {
+        .order = obel_heap_order_max,
+        .mask = 0xffff,
+        .capacity = 6,
+        .count = 0,
+        .coords = coords
+    };
+
+    obel_coord_heap_insert(&heap, (obel_coord_t){ .bits = 1 });
+    obel_coord_heap_insert(&heap, (obel_coord_t){ .bits = 2 });
+    obel_coord_heap_insert(&heap, (obel_coord_t){ .bits = 4 });
+    obel_coord_heap_insert(&heap, (obel_coord_t){ .bits = 6 });
+    obel_coord_heap_insert(&heap, (obel_coord_t){ .bits = 3 });
+    obel_coord_heap_insert(&heap, (obel_coord_t){ .bits = 5 });
+
+    printf("%hu\n", obel_coord_heap_remove(&heap, OBEL_HEAP_ROOT).bits);
+    printf("%hu\n", obel_coord_heap_remove(&heap, OBEL_HEAP_ROOT).bits);
+    printf("%hu\n", obel_coord_heap_remove(&heap, OBEL_HEAP_ROOT).bits);
+    printf("%hu\n", obel_coord_heap_remove(&heap, OBEL_HEAP_ROOT).bits);
+    printf("%hu\n", obel_coord_heap_remove(&heap, OBEL_HEAP_ROOT).bits);
+    printf("%hu\n", obel_coord_heap_remove(&heap, OBEL_HEAP_ROOT).bits);
+
     return 0;
 }
