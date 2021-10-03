@@ -31,6 +31,8 @@ typedef struct stat stat_t;
 #define OBEL_MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define OBEL_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
+#define OBEL_SAFE_DEREF_ASSIGN(pointer, value) if ((pointer)) *(pointer) = (value)
+
 OBEL_INLINE OBEL_OVERLOADABLE static void obel_swap(uint16_t *a, uint16_t *b) {
     (*a) = (*a) ^ (*b);
     (*b) = (*a) ^ (*b);
