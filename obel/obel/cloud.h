@@ -9,6 +9,7 @@
 #define cloud_h
 
 #include <obel/aabb.h>
+#include <obel/arena.h>
 #include <obel/define.h>
 #include <obel/histogram.h>
 #include <obel/vector.h>
@@ -39,6 +40,10 @@ OBEL_CLOUD_FUNC int32_t obel_cloud_read_xyz(int fd, obel_cloud_t *cloud);
 OBEL_CLOUD_FUNC int32_t obel_cloud_write_bin(int fd, obel_cloud_t *cloud);
 OBEL_CLOUD_FUNC int32_t obel_cloud_write_ply(int fd, obel_cloud_t *cloud);
 OBEL_CLOUD_FUNC int32_t obel_cloud_write_xyz(int fd, obel_cloud_t *cloud);
+
+// MARK: - Simplification
+
+OBEL_CLOUD_FUNC void obel_cloud_simplify(obel_arena_t *arena, obel_cloud_t *cloud, obel_cloud_t *simplified);
 
 // MARK: - Statistics
 

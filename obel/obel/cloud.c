@@ -141,6 +141,17 @@ OBEL_CLOUD_FUNC int32_t obel_cloud_write_xyz(int fd, obel_cloud_t *cloud) {
     return 0;
 }
 
+// MARK: - Simplification
+
+OBEL_CLOUD_FUNC void obel_cloud_simplify(obel_arena_t *arena, obel_cloud_t *cloud, obel_cloud_t *simplified) {
+    assert(simplified->capacity < cloud->capacity);
+
+    while (simplified->count < simplified->capacity) {
+        simplified->points[simplified->count] = cloud->points[simplified->count];
+        simplified->count++;
+    }
+}
+
 // MARK: - Statistics
 
 OBEL_CLOUD_FUNC obel_aabb_t obel_cloud_aabb(obel_cloud_t *cloud) {
