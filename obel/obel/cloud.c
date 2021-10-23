@@ -6,6 +6,7 @@
 //
 
 #include <obel/cloud.h>
+#include <obel/coord.h>
 
 // MARK: - Allocation
 
@@ -146,10 +147,109 @@ OBEL_CLOUD_FUNC int32_t obel_cloud_write_xyz(int fd, obel_cloud_t *cloud) {
 OBEL_CLOUD_FUNC void obel_cloud_simplify(obel_arena_t *arena, obel_cloud_t *cloud, obel_cloud_t *simplified) {
     assert(simplified->capacity < cloud->capacity);
 
-    while (simplified->count < simplified->capacity) {
-        simplified->points[simplified->count] = cloud->points[simplified->count];
-        simplified->count++;
+    obel_byte_t *bytes = arena->bytes + arena->count;
+
+    // Stuff to consider/fix...
+    //
+    //  - Better offset band radius heuristic. Maybe we could use a d2 histogram?
+    //  - The size of the grid may need to be enlarged along each axis in order
+    //    to fit the offset band.
+    //  - Does the grid's stride make sense?
+    //  - Determine a more accurate coordinate table upper bound capacity (remember
+    //    we want around 65% occupancy max). The current idea is to use the cloud's
+    //    count as well as the band's stride and radius.
+    //  - Determine tighter capacities for the heaps. For the min heap, consider
+    //    how 4/3 * pi * r^2 might be used. For the max heap, consider
+    //    band.table.capacity / 3.
+    //
+    float radius = 0.001f;
+    uint32_t table_capacity = 10 * cloud->count;
+
+    obel_aabb_t cloud_aabb = obel_cloud_aabb(cloud);
+
+    obel_coord_offset_band_t band = {
+        .radius = radius,
+        .grid = obel_coord_grid_make(2.2 * radius, cloud_aabb),
+        .table = {
+            .capacity = table_capacity,
+            .count = 0,
+            .coords = obel_arena_push_coord(arena, table_capacity)
+        }
+    };
+
+    uint32_t *projections = (uint32_t *)obel_arena_push(arena, table_capacity, sizeof(uint32_t));
+    uint32_t found_i, found_j = 0;
+
+    obel_coord_neighborhood_t neighborhood = obel_coord_neighborhood_push(arena, band.radius, band.grid.stride);
+
+    uint32_t shared_count = 0;
+
+    for (uint32_t i = 0; i < cloud->count; i++) {
+        obel_coord_t coord = obel_coord_grid_bin(&band.grid, cloud->points[i]);
+        if (!obel_coord_table_find(&band.table, coord, &found_i)) {
+            band.table.coords[found_i] = coord;
+            band.table.coords[found_i].bits |= OBEL_COORD_BITS_OCCUPIED;
+            band.table.count++;
+            projections[found_i] = i;
+
+            for (uint32_t j = 0; j < neighborhood.count; j++) {
+                obel_coord_offset_t offset = neighborhood.offsets[j];
+                obel_coord_t neighbor = obel_coord_make(coord.x + offset.x, coord.y + offset.y, coord.z + offset.z);
+                if (!obel_coord_table_find(&band.table, neighbor, &found_j)) {
+                    band.table.coords[found_j] = neighbor;
+                    band.table.coords[found_j].bits |= OBEL_COORD_BITS_OCCUPIED;
+                    band.table.count++;
+                    projections[found_j] = i;
+                } else {
+                    shared_count += 1;
+                }
+            }
+        } else {
+            shared_count += 1;
+        }
     }
+
+    obel_coord_marcher_t marcher = {
+        .band = band,
+        .propagation = {
+            .order = obel_heap_order_min,
+            .mask = OBEL_COORD_BITS_ARR_TIME,
+            .capacity = table_capacity,
+            .coords = obel_arena_push_coord(arena, table_capacity)
+        },
+        .vertices = {
+            .order = obel_heap_order_max,
+            .mask = OBEL_COORD_BITS_ARR_TIME,
+            .capacity = table_capacity,
+            .coords = obel_arena_push_coord(arena, table_capacity)
+        }
+    };
+
+    const uint32_t max_initial_count = 4;
+    uint32_t initial_count = 0;
+    uint32_t initial_coords[max_initial_count];
+
+    for (uint32_t i = 0; i < max_initial_count; i++) {
+        uint32_t rand_i = arc4random_uniform(cloud->count);
+        obel_coord_t coord = obel_coord_grid_bin(&band.grid, cloud->points[rand_i]);
+        if (obel_coord_table_find(&band.table, coord, &found_i)) {
+            // Mark an initial set of points in the offset band as ALIVE.
+            band.table.coords[found_i].bits |= OBEL_COORD_BITS_ALIVE;
+            initial_coords[initial_count++] = found_i;
+            obel_coord_heap_insert(&marcher.propagation, band.table.coords[found_i]);
+        } else {
+            assert(false);
+        }
+    }
+
+    obel_coord_propagate(&marcher);
+
+    while (simplified->count < simplified->capacity) {
+        uint32_t projection = projections[obel_coord_march(&marcher)];
+        simplified->points[simplified->count++] = cloud->points[projection];
+    }
+
+    obel_arena_pop(arena, bytes);
 }
 
 // MARK: - Statistics
