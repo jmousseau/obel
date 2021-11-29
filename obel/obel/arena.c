@@ -77,3 +77,13 @@ OBEL_COORD_FUNC obel_coord_neighborhood_t obel_coord_neighborhood_push(obel_aren
 
     return neighborhood;
 }
+
+OBEL_ARENA_FUNC obel_sparse_set_t obel_coord_sparse_set_push(obel_arena_t *arena, uint16_t capacity) {
+    size_t size = capacity * sizeof(uint16_t);
+    return (obel_sparse_set_t){
+        .capacity = capacity,
+        .count = 0,
+        .sparse = (uint16_t *)obel_arena_push(arena, size),
+        .dense = (uint16_t *)obel_arena_push(arena, size)
+    };
+}

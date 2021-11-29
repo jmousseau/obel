@@ -30,6 +30,9 @@
 		04CF172026FC00EA006571F0 /* histogram.c in Sources */ = {isa = PBXBuildFile; fileRef = 04CF171E26FC00EA006571F0 /* histogram.c */; };
 		04D0EBCF26FADAE000BF2DB5 /* obel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A8B3BA26FAB72400816598 /* obel.framework */; };
 		04D0EBD626FAEAA800BF2DB5 /* vector.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D0EBD526FAEAA800BF2DB5 /* vector.m */; };
+		04EFF55327551CB700C2395D /* set.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EFF55127551CB700C2395D /* set.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04EFF55427551CB700C2395D /* set.c in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF55227551CB700C2395D /* set.c */; };
+		04EFF5562755227A00C2395D /* set.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EFF5552755227A00C2395D /* set.m */; };
 		04F4D15F26FD4CEE0085EFDD /* histogram.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F4D15E26FD4CEE0085EFDD /* histogram.m */; };
 		04F4D16226FD54A00085EFDD /* cloud.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F4D16026FD54A00085EFDD /* cloud.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04F4D16326FD54A00085EFDD /* cloud.c in Sources */ = {isa = PBXBuildFile; fileRef = 04F4D16126FD54A00085EFDD /* cloud.c */; };
@@ -85,6 +88,9 @@
 		04CF171E26FC00EA006571F0 /* histogram.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = histogram.c; sourceTree = "<group>"; };
 		04D0EBCB26FADAE000BF2DB5 /* obeltests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = obeltests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D0EBD526FAEAA800BF2DB5 /* vector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vector.m; sourceTree = "<group>"; };
+		04EFF55127551CB700C2395D /* set.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = set.h; sourceTree = "<group>"; };
+		04EFF55227551CB700C2395D /* set.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = set.c; sourceTree = "<group>"; };
+		04EFF5552755227A00C2395D /* set.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = set.m; sourceTree = "<group>"; };
 		04F4D15E26FD4CEE0085EFDD /* histogram.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = histogram.m; sourceTree = "<group>"; };
 		04F4D16026FD54A00085EFDD /* cloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cloud.h; sourceTree = "<group>"; };
 		04F4D16126FD54A00085EFDD /* cloud.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cloud.c; sourceTree = "<group>"; };
@@ -160,6 +166,8 @@
 				04CF171E26FC00EA006571F0 /* histogram.c */,
 				049C6FA2271B482600FD6397 /* memory.h */,
 				049C6FA3271B482600FD6397 /* memory.c */,
+				04EFF55127551CB700C2395D /* set.h */,
+				04EFF55227551CB700C2395D /* set.c */,
 				04A8B3D026FACB9800816598 /* vector.h */,
 				04A8B3D126FACB9800816598 /* vector.c */,
 			);
@@ -177,6 +185,7 @@
 				04F4D15E26FD4CEE0085EFDD /* histogram.m */,
 				049C6FAC271B523900FD6397 /* memory.m */,
 				04D0EBD526FAEAA800BF2DB5 /* vector.m */,
+				04EFF5552755227A00C2395D /* set.m */,
 			);
 			path = obeltests;
 			sourceTree = "<group>";
@@ -203,6 +212,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EFF55327551CB700C2395D /* set.h in Headers */,
 				0449FEC22708D13300011F08 /* coord.h in Headers */,
 				04F4D16226FD54A00085EFDD /* cloud.h in Headers */,
 				049C6FA4271B482600FD6397 /* memory.h in Headers */,
@@ -334,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EFF55427551CB700C2395D /* set.c in Sources */,
 				049C6FA5271B482600FD6397 /* memory.c in Sources */,
 				04CF172026FC00EA006571F0 /* histogram.c in Sources */,
 				0449FEC72708D49A00011F08 /* heap.c in Sources */,
@@ -355,6 +366,7 @@
 				04F4D16726FD6E0C0085EFDD /* cloud.m in Sources */,
 				049C6FAD271B523900FD6397 /* memory.m in Sources */,
 				0449FECB2708EDE600011F08 /* coord.m in Sources */,
+				04EFF5562755227A00C2395D /* set.m in Sources */,
 				04D0EBD626FAEAA800BF2DB5 /* vector.m in Sources */,
 				04CF171C26FB857F006571F0 /* aabb.m in Sources */,
 			);

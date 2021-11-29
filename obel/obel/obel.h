@@ -13,4 +13,5 @@
 #include <obel/heap.h>
 #include <obel/histogram.h>
 #include <obel/memory.h>
+#include <obel/set.h>
 #include <obel/vector.h>
